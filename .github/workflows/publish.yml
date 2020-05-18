@@ -1,0 +1,32 @@
+name: Publish Nuget package
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        
+      - name: Bump version
+        id: next_version
+        uses: zwaldowski/semver-release-action@v1
+        with:
+          bump: minor
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.100
+      
+      - name: Build
+        run: dotnet build -c Release Src/t4ccer.Noisy
+      
+      - name: Pack
+        run: dotnet pack -c Release -p:Version=${{ steps.next_version.outputs.version }} -o nuget -p:Authors="t4ccer" Src/t4ccer.Noisy
+      
+      - name: Publish
+        run: dotnet nuget push nuget/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
