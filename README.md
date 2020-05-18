@@ -14,16 +14,16 @@ var value = noise.At(x, y, z);
 
 Getting noise value at plane(2d array):
 ```csharp
-var values = noise.At(x, y, width, height, increment);
+var values = noise.AtPlane(x, y, width, height, increment);
 //or
-var values = noise.At(x, y, z, width, height, increment);
+var values = noise.AtPlane(x, y, z, width, height, increment);
 ```
 
 Getting noise value at line(1d array):
 ```csharp
-var values = noise.At(x, width, increment);
+var values = noise.AtLine(x, width, increment);
 //or
-var values = noise.At(x, y, z, width, increment);
+var values = noise.AtLine(x, y, z, width, increment);
 ```
 
 ### Open Simplex Noise 2D
