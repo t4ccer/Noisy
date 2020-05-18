@@ -1,6 +1,6 @@
 # Noisy
 Noisy is c# library for generating noises. At this moment Noisy implements 3D Perlin Noise(can be used as 2D also), Open Simplex Noise(2D and 3D) and WorleyNoise(2D and 3D).
-## Instalation
+## installation
 To use in Your code just install [t4ccer.Noisy](https://www.nuget.org/packages/t4ccer.Noisy) nuget package
 
 ## Usage
