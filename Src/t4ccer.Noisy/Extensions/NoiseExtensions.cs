@@ -1,4 +1,6 @@
-﻿namespace t4ccer.Noisy
+﻿using System.Threading.Tasks;
+
+namespace t4ccer.Noisy
 {
     public static class NoiseExtensions
     {
@@ -16,6 +18,23 @@
                     values[x, y] = val;
                 }
             }
+            return values;
+        }
+
+        public static Plane AtPlaneParallel(this INoise noise, double startX, double startY, int width, int height, double increment)
+            => noise.AtPlaneParallel(startX, startY, 0, width, height, increment);
+        public static Plane AtPlaneParallel(this INoise noise, double startX, double startY, double z, int width, int height, double increment)
+        {
+            var values = new double[width, height];
+
+            Parallel.For(0, width * height, i =>
+            {
+                int x = i / height;
+                int y = i % height;
+                var val = noise.At(startX + x * increment, startY + y * increment, z);
+                values[x, y] = val;
+            });
+
             return values;
         }
 
