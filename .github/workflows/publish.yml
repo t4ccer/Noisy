@@ -6,6 +6,7 @@ on:
       - master
 jobs:
   publish:
+    if: contains(toJson(github.event.commits), '***NO_CI***') == false && contains(toJson(github.event.commits), '[ci skip]') == false && contains(toJson(github.event.commits), '[skip ci]') == false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
